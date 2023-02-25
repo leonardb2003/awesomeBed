@@ -48,15 +48,19 @@ class User{
         const qry = 
         `
         SELECT userID, firstName, lastName , gender, emailAdd, userRole, userProfile
-        FROM Users
-        WHERE userID = ?;
+        FROM Users;
         `
+        db.query(strQry, (err, data)=> {
+            if(err) throw err;
+            else res.status(200).json({results:data})
+        })
     }
-    fetchUsers(req, res) {
+    fetchUser(req, res) {
         const qry = 
         `
         SELECT userID, firstName, lastName , gender, emailAdd, userRole, userProfile
-        FROM Users;
+        FROM Users
+        WHERE userID = ?;
         `
         db.query(strQry,[req.params.id], (err, data)=> {
             if(err) throw err;
